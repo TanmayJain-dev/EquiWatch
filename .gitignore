@@ -8,3 +8,13 @@ dist/
 build/
 .idea/
 .vscode/
+.env
+.env.example
+node_modules/
+__pycache__/
+.venv/
+venv/
+dist/
+build/
+.idea/
+.vscode/
