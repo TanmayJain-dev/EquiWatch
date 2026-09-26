@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, Send, Bot, User, ShieldCheck, Database, CheckCircle2, ArrowRight } from 'lucide-react';
 import { api } from '../services/api';
 import { AIChatResponse } from '../types';
+import { MarkdownView } from '../components/ui/MarkdownView';
 
 export const AIAssistantPage: React.FC = () => {
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; content: string; citations?: any[] }>>([
@@ -97,9 +98,7 @@ export const AIAssistantPage: React.FC = () => {
                 ? 'bg-slate-900 text-white'
                 : 'bg-slate-50 text-slate-800 border border-slate-200 shadow-sm'
             }`}>
-              <div className="whitespace-pre-wrap font-sans">
-                {m.content}
-              </div>
+              <MarkdownView content={m.content} isUser={m.role === 'user'} />
 
               {/* Citations Box */}
               {m.citations && m.citations.length > 0 && (
