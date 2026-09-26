@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased;
+  }
+}
+
+/* Crisp table styling */
+.saas-table {
+  @apply w-full text-left text-sm text-slate-600;
+}
+
+.saas-table thead {
+  @apply bg-slate-100/75 text-xs uppercase tracking-wider text-slate-500 font-medium border-b border-slate-200;
+}
+
+.saas-table th {
+  @apply px-4 py-3 font-semibold;
+}
+
+.saas-table td {
+  @apply px-4 py-3.5 border-b border-slate-100;
+}
+
+.saas-table tbody tr:hover {
+  @apply bg-slate-50/80;
+}
+
+/* Subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
