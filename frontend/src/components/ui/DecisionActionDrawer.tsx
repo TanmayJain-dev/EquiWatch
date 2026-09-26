@@ -33,7 +33,6 @@ export const DecisionActionDrawer: React.FC<DecisionActionDrawerProps> = ({
   };
 
   return (
-  return (
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex justify-end">
       <div className="w-full sm:max-w-2xl bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
         {/* Header */}
