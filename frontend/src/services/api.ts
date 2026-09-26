@@ -4,7 +4,22 @@ import {
   AIChatResponse, Report, BenchmarkValidationResult, GovernmentPreviewData
 } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const resolveApiBase = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) {
+    return 'http://localhost:8000/api/v1';
+  }
+  let base = envUrl.trim();
+  if (!base.startsWith('http://') && !base.startsWith('https://') && !base.startsWith('/')) {
+    base = `https://${base}`;
+  }
+  if (!base.endsWith('/api/v1') && !base.includes('/api/')) {
+    base = base.replace(/\/+$/, '') + '/api/v1';
+  }
+  return base;
+};
+
+const API_BASE = resolveApiBase();
 
 class ApiClient {
   private getToken(): string | null {
