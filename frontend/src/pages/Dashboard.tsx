@@ -61,38 +61,38 @@ export const Dashboard: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">
             Workplace Equity Overview
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">
             Decision-support monitoring across 5 departments at {summary.company_name} • Last updated: {summary.last_updated}
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={() => navigate('/ai-assistant')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-md transition-colors"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors"
           >
             <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
             AI Analyst Chat
           </button>
           <button
             onClick={() => navigate('/reports')}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-md transition-colors shadow-sm"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors shadow-sm"
           >
             <FileText className="w-3.5 h-3.5" />
-            Generate Review Report
+            Review Report
           </button>
         </div>
       </div>
 
-      {/* 4 Top KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 4 Top KPI Cards (2x2 on mobile, 4x1 on desktop) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         <MetricCard
           title="Total Workforce"
           value={summary.total_employees.toLocaleString()}
@@ -100,73 +100,73 @@ export const Dashboard: React.FC = () => {
           icon={Users}
         />
         <MetricCard
-          title="Departments Monitored"
+          title="Departments"
           value={summary.total_departments}
           subtitle="IT, Sales, Finance, Operations, HR"
           icon={Building2}
         />
         <MetricCard
-          title="Potential Equity Signals"
+          title="Equity Signals"
           value={summary.active_signals_count}
-          subtitle="Analytical patterns exceeding baseline thresholds"
+          subtitle="Patterns exceeding baseline thresholds"
           icon={AlertTriangle}
           deltaType={summary.active_signals_count > 0 ? 'warning' : 'positive'}
         />
         <MetricCard
-          title="Signals Requiring Review"
+          title="Needs Review"
           value={summary.signals_requiring_review}
-          subtitle="Longitudinal, statistically significant disparities"
+          subtitle="Longitudinal, persistent disparities"
           icon={Clock}
           badge={<SignalBadge status="review" size="sm" labelOverride={`${summary.signals_requiring_review} Priority`} />}
         />
       </div>
 
-      {/* SECTION 28: "Where should HR look first?" (Needs Review Priority Queue) */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
+      {/* "Where should HR look first?" (Needs Review Priority Queue) */}
+      <div className="bg-white border border-slate-200 rounded-xl p-3.5 sm:p-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3 sm:mb-4">
           <div>
-            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+            <h2 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
               Where Should HR Look First? (Needs Review)
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
               Prioritized queue of active equity signals showing statistical persistence across multiple quarters.
             </p>
           </div>
-          <span className="text-xs text-slate-400">Click any row to open actionable investigation steps</span>
+          <span className="hidden sm:inline text-xs text-slate-400">Click any row to open actionable investigation steps</span>
         </div>
 
         {summary.needs_review_queue.length === 0 ? (
-          <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded border border-slate-100">
+          <div className="p-6 text-center text-xs text-slate-500 bg-slate-50 rounded-lg border border-slate-100">
             No active review signals detected across current baseline.
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {summary.needs_review_queue.map((item) => (
               <div
                 key={item.id}
                 onClick={() => handleOpenActionDrawer(item)}
-                className="p-4 bg-rose-50/40 hover:bg-rose-50/80 border border-rose-200/80 rounded-lg transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                className="p-3.5 sm:p-4 bg-rose-50/40 hover:bg-rose-50/80 active:bg-rose-100/70 border border-rose-200/80 rounded-xl transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
               >
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-bold text-xs text-slate-900">{item.department} Department</span>
+                  <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                    <span className="font-bold text-xs text-slate-900">{item.department}</span>
                     <span className="text-xs text-slate-400">•</span>
-                    <span className="text-xs font-semibold text-slate-700 capitalize">{item.metric.replace('_', ' ')} Disparity</span>
+                    <span className="text-xs font-semibold text-slate-700 capitalize">{item.metric.replace('_', ' ')}</span>
                     <SignalBadge status="review" size="sm" />
                     <ConfidenceBadge confidence={item.confidence} />
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    <strong>Observed Disparity:</strong> {item.observed_difference} • <strong>Persistence:</strong> {item.persistence}
+                    <strong>Disparity:</strong> {item.observed_difference} • <strong>Persistence:</strong> {item.persistence}
                   </p>
-                  <p className="text-[11px] text-slate-500 line-clamp-1">
+                  <p className="text-[11px] text-slate-500 line-clamp-2 sm:line-clamp-1">
                     {item.suggested_review}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="flex items-center sm:self-center pt-1 sm:pt-0">
                   <button
-                    className="px-3 py-1.5 text-xs font-semibold text-slate-900 bg-white group-hover:bg-slate-900 group-hover:text-white border border-slate-300 group-hover:border-slate-900 rounded transition-all flex items-center gap-1 shadow-sm"
+                    className="w-full sm:w-auto px-3.5 py-2 sm:py-1.5 text-xs font-semibold text-slate-900 bg-white group-hover:bg-slate-900 group-hover:text-white border border-slate-300 group-hover:border-slate-900 rounded-lg transition-all flex items-center justify-center gap-1 shadow-sm"
                   >
                     <span>What should HR do?</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -178,14 +178,14 @@ export const Dashboard: React.FC = () => {
         )}
       </div>
 
-      {/* Department Equity Overview Table */}
-      <div className="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm">
-        <div className="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* Department Equity Overview */}
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+        <div className="p-3.5 sm:p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
           <div>
-            <h2 className="text-sm font-bold text-slate-900">
+            <h2 className="text-xs sm:text-sm font-bold text-slate-900">
               Department Equity Overview
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
               Comprehensive status across Workload, Task Allocation, Pay, and Promotions.
             </p>
           </div>
@@ -195,7 +195,7 @@ export const Dashboard: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-xs font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5 focus:outline-none"
+              className="w-full sm:w-auto text-xs font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none"
             >
               <option value="all">All Statuses ({summary.department_overview.length})</option>
               <option value="review">Review Recommended</option>
@@ -205,8 +205,61 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="saas-table">
+        {/* Mobile View: Clean Responsive Cards */}
+        <div className="block md:hidden divide-y divide-slate-100 p-2">
+          {filteredDepts.map((d) => (
+            <div
+              key={d.name}
+              onClick={() => navigate(`/departments/${d.name}`)}
+              className="p-3 hover:bg-slate-50 active:bg-slate-100 rounded-xl transition-colors cursor-pointer space-y-2.5"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-xs text-slate-900">{d.name}</span>
+                  <span className="text-[10px] text-slate-400 ml-1.5">({d.code} • {d.head_count} staff)</span>
+                </div>
+                <SignalBadge status={d.status.toLowerCase()} size="sm" />
+              </div>
+
+              {/* 4 pillar mini-grid */}
+              <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+                <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                  <span className="text-slate-500 text-[10px]">Workload:</span>
+                  <span className={`font-semibold text-[10.5px] ${d.workload_status === 'Review' ? 'text-rose-600' : d.workload_status === 'Moderate' ? 'text-amber-600' : 'text-slate-700'}`}>
+                    {d.workload_status}
+                  </span>
+                </div>
+                <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                  <span className="text-slate-500 text-[10px]">Tasks:</span>
+                  <span className={`font-semibold text-[10.5px] ${d.task_allocation_status === 'Review' ? 'text-rose-600' : d.task_allocation_status === 'Moderate' ? 'text-amber-600' : 'text-slate-700'}`}>
+                    {d.task_allocation_status}
+                  </span>
+                </div>
+                <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                  <span className="text-slate-500 text-[10px]">Pay:</span>
+                  <span className={`font-semibold text-[10.5px] ${d.pay_status === 'Review' ? 'text-rose-600' : d.pay_status === 'Moderate' ? 'text-amber-600' : 'text-slate-700'}`}>
+                    {d.pay_status}
+                  </span>
+                </div>
+                <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100 flex items-center justify-between">
+                  <span className="text-slate-500 text-[10px]">Promotions:</span>
+                  <span className={`font-semibold text-[10.5px] ${d.promotion_status === 'Review' ? 'text-rose-600' : d.promotion_status === 'Moderate' ? 'text-amber-600' : 'text-slate-700'}`}>
+                    {d.promotion_status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-1 flex items-center justify-end text-xs font-semibold text-indigo-600">
+                <span>View Details</span>
+                <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Full Table with Horizontal Scroll Protection */}
+        <div className="hidden md:block overflow-x-auto w-full">
+          <table className="saas-table min-w-[680px]">
             <thead>
               <tr>
                 <th>Department</th>
@@ -271,14 +324,14 @@ export const Dashboard: React.FC = () => {
       </div>
 
       {/* Longitudinal 8-Quarter Equity Trend Analysis */}
-      <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+      <div className="bg-white border border-slate-200 rounded-xl p-3.5 sm:p-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3 sm:mb-4">
           <div>
-            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <h2 className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-indigo-600" />
               Longitudinal Equity Disparity Trends (2024-Q1 to 2025-Q4)
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
               Tracks persistence and gap widening across quarters to distinguish stochastic noise from structural patterns.
             </p>
           </div>

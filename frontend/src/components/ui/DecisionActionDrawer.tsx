@@ -33,66 +33,68 @@ export const DecisionActionDrawer: React.FC<DecisionActionDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/40 backdrop-blur-sm flex justify-end">
-      <div className="w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
+  return (
+    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex justify-end">
+      <div className="w-full sm:max-w-2xl bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-200">
         {/* Header */}
-        <div className="p-5 border-b border-slate-200 bg-slate-50 flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
+        <div className="p-4 sm:p-5 border-b border-slate-200 bg-slate-50 flex items-start justify-between">
+          <div className="min-w-0 pr-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 flex-wrap">
               <SignalBadge status={signal.severity} />
-              <span className="text-xs text-slate-500 font-medium">{signal.department_name} Department</span>
+              <span className="text-[11px] sm:text-xs text-slate-500 font-medium">{signal.department_name} Department</span>
               <ConfidenceBadge confidence={signal.confidence} />
             </div>
-            <h2 className="text-base font-bold text-slate-900">{signal.title}</h2>
+            <h2 className="text-sm sm:text-base font-bold text-slate-900 leading-snug">{signal.title}</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 rounded-md transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 rounded-lg transition-colors flex-shrink-0"
+            aria-label="Close drawer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex border-b border-slate-200 px-5 bg-white text-xs font-semibold">
+        {/* Tab Navigation (Horizontally scrollable on mobile) */}
+        <div className="flex border-b border-slate-200 px-2 sm:px-5 bg-white text-xs font-semibold overflow-x-auto whitespace-nowrap gap-1">
           <button
             onClick={() => setActiveTab('review')}
-            className={`py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors ${
+            className={`py-2.5 sm:py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors flex-shrink-0 ${
               activeTab === 'review'
-                ? 'border-indigo-600 text-indigo-600'
+                ? 'border-indigo-600 text-indigo-600 font-bold'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
             <BarChart2 className="w-3.5 h-3.5" />
-            1. Review Evidence
+            1. Evidence
           </button>
           <button
             onClick={() => setActiveTab('talk')}
-            className={`py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors ${
+            className={`py-2.5 sm:py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors flex-shrink-0 ${
               activeTab === 'talk'
-                ? 'border-indigo-600 text-indigo-600'
+                ? 'border-indigo-600 text-indigo-600 font-bold'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
             <MessageSquare className="w-3.5 h-3.5" />
-            2. Talk to Leadership
+            2. Discussion Script
           </button>
           <button
             onClick={() => setActiveTab('investigate')}
-            className={`py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors ${
+            className={`py-2.5 sm:py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors flex-shrink-0 ${
               activeTab === 'investigate'
-                ? 'border-indigo-600 text-indigo-600'
+                ? 'border-indigo-600 text-indigo-600 font-bold'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
             <Search className="w-3.5 h-3.5" />
-            3. Investigate Data
+            3. Investigation
           </button>
           <button
             onClick={() => setActiveTab('why')}
-            className={`py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors ${
+            className={`py-2.5 sm:py-3 px-3 border-b-2 flex items-center gap-1.5 transition-colors flex-shrink-0 ${
               activeTab === 'why'
-                ? 'border-indigo-600 text-indigo-600'
+                ? 'border-indigo-600 text-indigo-600 font-bold'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
@@ -102,7 +104,7 @@ export const DecisionActionDrawer: React.FC<DecisionActionDrawerProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm text-slate-700">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6 text-xs sm:text-sm text-slate-700">
           {activeTab === 'review' && (
             <div className="space-y-4">
               <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">

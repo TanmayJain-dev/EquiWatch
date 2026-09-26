@@ -3,10 +3,15 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, Building2, Clock, CheckSquare, DollarSign,
   TrendingUp, AlertTriangle, Sparkles, FileText, Database,
-  Landmark, Globe, ShieldCheck
+  Landmark, Globe, ShieldCheck, X, Shield
 } from 'lucide-react';
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ mobileOpen = false, onClose }) => {
   const navItems = [
     { label: 'Overview', to: '/dashboard', icon: LayoutDashboard },
     { label: 'Departments', to: '/departments', icon: Building2 },
@@ -22,13 +27,36 @@ export const Sidebar: React.FC = () => {
     { label: 'SDG & Impact', to: '/impact', icon: Globe },
   ];
 
-  return (
-    <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0 border-r border-slate-800 select-none">
+  const renderNavContent = (isMobile: boolean = false) => (
+    <>
+      {isMobile && (
+        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-sm">
+              <Shield className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <span className="font-bold text-white tracking-tight text-sm">EquiWatch</span>
+              <p className="text-[10px] text-slate-400 font-medium">Decision Support Navigation</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+
       {/* Sidebar Nav items */}
       <div className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
-        <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">
-          Decision Support Navigation
-        </p>
+        {!isMobile && (
+          <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+            Decision Support Navigation
+          </p>
+        )}
 
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -36,11 +64,14 @@ export const Sidebar: React.FC = () => {
             <NavLink
               key={item.to}
               to={item.to}
+              onClick={() => {
+                if (isMobile && onClose) onClose();
+              }}
               className={({ isActive }) =>
-                `flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                `flex items-center justify-between px-3 py-2.5 sm:py-2 rounded-lg text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-slate-800 text-white font-semibold shadow-sm border border-slate-700/60'
-                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                    ? 'bg-indigo-600 text-white font-semibold shadow-sm'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 active:bg-slate-800'
                 }`
               }
             >
@@ -70,6 +101,30 @@ export const Sidebar: React.FC = () => {
           EquiWatch identifies potential disparities for review. It does not decide whether discrimination occurred.
         </p>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar (hidden on mobile, visible on lg+) */}
+      <aside className="hidden lg:flex w-64 bg-slate-900 text-slate-300 flex-col flex-shrink-0 border-r border-slate-800 select-none">
+        {renderNavContent(false)}
+      </aside>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity"
+            onClick={onClose}
+          />
+          {/* Sliding drawer */}
+          <div className="relative w-72 max-w-[85vw] bg-slate-900 text-slate-300 h-full flex flex-col z-10 shadow-2xl animate-in slide-in-from-left duration-200">
+            {renderNavContent(true)}
+          </div>
+        </div>
+      )}
+    </>
   );
 };

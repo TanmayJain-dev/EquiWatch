@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Shield, Sparkles, RefreshCw, UserCheck, LogOut, CheckCircle2, ChevronDown, Lock } from 'lucide-react';
+import { Shield, Sparkles, RefreshCw, UserCheck, LogOut, CheckCircle2, ChevronDown, Lock, Menu } from 'lucide-react';
 import { api } from '../../services/api';
 
 interface NavbarProps {
   onRefreshData?: () => void;
+  onOpenMenu?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onRefreshData }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onRefreshData, onOpenMenu }) => {
   const [resetting, setResetting] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const user = api.getCurrentUser() || { email: 'hr@novaworks.com', full_name: 'Priya Sharma (HR Lead)', role: 'hr_admin' };
@@ -31,21 +32,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onRefreshData }) => {
   };
 
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-30 h-16 flex items-center justify-between px-6">
+    <header className="bg-white border-b border-slate-200 sticky top-0 z-30 h-16 flex items-center justify-between px-3 sm:px-6">
       {/* Brand & Tagline */}
-      <div className="flex items-center gap-4">
-        <a href="/dashboard" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white shadow-sm">
+      <div className="flex items-center gap-2 sm:gap-4">
+        {onOpenMenu && (
+          <button
+            onClick={onOpenMenu}
+            className="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+            aria-label="Open sidebar menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+
+        <a href="/dashboard" className="flex items-center gap-2 sm:gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white shadow-sm flex-shrink-0">
             <Shield className="w-4 h-4 text-indigo-400" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-900 tracking-tight text-base">EquiWatch</span>
-              <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 rounded">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-bold text-slate-900 tracking-tight text-sm sm:text-base">EquiWatch</span>
+              <span className="hidden xs:inline-block px-1.5 py-0.5 text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 rounded">
                 SaaS v1.0
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 font-medium tracking-wide">
+            <p className="hidden sm:block text-[11px] text-slate-500 font-medium tracking-wide">
               Detect. Explain. Act.
             </p>
           </div>

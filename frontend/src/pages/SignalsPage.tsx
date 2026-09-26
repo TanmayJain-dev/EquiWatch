@@ -60,11 +60,11 @@ export const SignalsPage: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <select
             value={deptFilter}
             onChange={(e) => setDeptFilter(e.target.value)}
-            className="text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-1.5 focus:outline-none shadow-sm"
+            className="flex-1 sm:flex-none text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-2 sm:py-1.5 focus:outline-none shadow-sm"
           >
             <option value="all">All Departments</option>
             <option value="Sales">Sales</option>
@@ -77,7 +77,7 @@ export const SignalsPage: React.FC = () => {
           <select
             value={severityFilter}
             onChange={(e) => setSeverityFilter(e.target.value)}
-            className="text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-1.5 focus:outline-none shadow-sm"
+            className="flex-1 sm:flex-none text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-2 sm:py-1.5 focus:outline-none shadow-sm"
           >
             <option value="all">All Severities</option>
             <option value="review">Review Recommended</option>
@@ -89,7 +89,7 @@ export const SignalsPage: React.FC = () => {
       {/* Signals List */}
       <div className="space-y-4">
         {signals.length === 0 ? (
-          <div className="p-10 text-center text-xs text-slate-500 bg-white border border-slate-200 rounded-lg">
+          <div className="p-8 sm:p-10 text-center text-xs text-slate-500 bg-white border border-slate-200 rounded-lg">
             <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
             No active equity signals matching the selected criteria.
           </div>
@@ -97,7 +97,7 @@ export const SignalsPage: React.FC = () => {
           signals.map((sig) => (
             <div
               key={sig.id}
-              className="bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-5 shadow-sm transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
+              className="bg-white border border-slate-200 hover:border-slate-300 rounded-xl p-4 sm:p-5 shadow-sm transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
             >
               <div className="space-y-2 max-w-3xl">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -118,26 +118,26 @@ export const SignalsPage: React.FC = () => {
                   <strong>Why Flagged:</strong> {sig.why_flagged}
                 </p>
 
-                <div className="pt-2 flex items-center gap-4 text-[11px] text-slate-500">
+                <div className="pt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500">
                   <span><strong>Sample:</strong> {sig.sample_size} records</span>
                   <span><strong>Observed Delta:</strong> {sig.difference_value} {sig.difference_unit}</span>
                   {sig.p_value && <span><strong>p-value:</strong> {sig.p_value}</span>}
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row md:flex-col items-end gap-2 flex-shrink-0">
+              <div className="flex flex-col sm:flex-row md:flex-col items-stretch sm:items-center md:items-end gap-2 flex-shrink-0 w-full md:w-auto pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
                 <button
                   onClick={() => handleOpenAction(sig)}
-                  className="w-full sm:w-auto px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+                  className="w-full sm:w-auto px-4 py-2.5 sm:py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
                   What should HR do?
                 </button>
                 <button
                   onClick={() => navigate(`/departments/${sig.department_name}`)}
-                  className="w-full sm:w-auto px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors text-right"
+                  className="w-full sm:w-auto px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors text-center md:text-right"
                 >
-                  View Department Deep-Dive →
+                  View Deep-Dive →
                 </button>
               </div>
             </div>

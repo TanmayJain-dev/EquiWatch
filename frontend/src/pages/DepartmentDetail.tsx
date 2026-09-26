@@ -75,7 +75,7 @@ export const DepartmentDetail: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Back button & Breadcrumb */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <button
           onClick={() => navigate('/departments')}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
@@ -87,7 +87,7 @@ export const DepartmentDetail: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate(`/reports?dept=${departmentName}`)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-md transition-colors shadow-sm"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-md transition-colors shadow-sm"
           >
             <FileText className="w-3.5 h-3.5" />
             Generate {departmentName} Report
@@ -96,10 +96,10 @@ export const DepartmentDetail: React.FC = () => {
       </div>
 
       {/* Header Banner */}
-      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
               {deptOverview.department.name} Department
             </h1>
             <SignalBadge status={deptOverview.department.status.toLowerCase()} size="md" />
@@ -109,7 +109,7 @@ export const DepartmentDetail: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-lg border border-slate-100 text-xs">
+        <div className="flex items-center gap-3 bg-slate-50 p-2.5 sm:p-3 rounded-lg border border-slate-100 text-xs self-start sm:self-auto">
           <div>
             <span className="text-slate-400 block text-[10px] uppercase font-semibold">Active Signals</span>
             <span className="font-bold text-slate-900 text-sm">{deptOverview.signals.length} Detected</span>
@@ -118,26 +118,26 @@ export const DepartmentDetail: React.FC = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="border-b border-slate-200 flex gap-2 text-xs font-semibold overflow-x-auto">
+      <div className="border-b border-slate-200 flex gap-1 sm:gap-2 text-xs font-semibold overflow-x-auto pb-1 sm:pb-0">
         {[
-          { id: 'overview', label: 'Department Overview', icon: Building2 },
-          { id: 'workload', label: 'Workload Hours', icon: Clock },
-          { id: 'tasks', label: 'Task Allocation', icon: CheckSquare },
+          { id: 'overview', label: 'Overview', icon: Building2 },
+          { id: 'workload', label: 'Workload', icon: Clock },
+          { id: 'tasks', label: 'Tasks', icon: CheckSquare },
           { id: 'pay', label: 'Pay & Increments', icon: DollarSign },
-          { id: 'promotions', label: 'Promotion Progression', icon: TrendingUp },
+          { id: 'promotions', label: 'Promotions', icon: TrendingUp },
         ].map((tab) => {
           const Icon = tab.icon;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`py-3 px-4 border-b-2 flex items-center gap-2 transition-colors whitespace-nowrap ${
+              className={`py-2.5 sm:py-3 px-3 sm:px-4 border-b-2 flex items-center gap-1.5 sm:gap-2 transition-colors whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'border-indigo-600 text-indigo-600 font-bold'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
               }`}
             >
-              <Icon className="w-3.5 h-3.5" />
+              <Icon className="w-3.5 h-3.5 flex-shrink-0" />
               {tab.label}
             </button>
           );
@@ -193,55 +193,55 @@ export const DepartmentDetail: React.FC = () => {
           </div>
 
           {/* 4 Pillar Snapshot Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-500">Workload Status</span>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Workload</span>
                 <SignalBadge status={deptOverview.pillar_summary.workload.status} size="sm" />
               </div>
-              <p className="text-base font-bold text-slate-900">
-                {deptOverview.pillar_summary.workload.female_avg_hours}h (F) vs {deptOverview.pillar_summary.workload.male_avg_hours}h (M)
+              <p className="text-sm sm:text-base font-bold text-slate-900">
+                {deptOverview.pillar_summary.workload.female_avg_hours}h vs {deptOverview.pillar_summary.workload.male_avg_hours}h
               </p>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Delta: {deptOverview.pillar_summary.workload.difference_hours} hours/quarter
+              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">
+                Delta: {deptOverview.pillar_summary.workload.difference_hours} hrs/qtr
               </p>
             </div>
 
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-500">Task Allocation</span>
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Task Allocation</span>
                 <SignalBadge status={deptOverview.pillar_summary.task_allocation.status} size="sm" />
               </div>
-              <p className="text-base font-bold text-slate-900">
-                {deptOverview.pillar_summary.task_allocation.administrative_female_pct}% (F) vs {deptOverview.pillar_summary.task_allocation.administrative_male_pct}% (M)
+              <p className="text-sm sm:text-base font-bold text-slate-900">
+                {deptOverview.pillar_summary.task_allocation.administrative_female_pct}% vs {deptOverview.pillar_summary.task_allocation.administrative_male_pct}%
               </p>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Administrative Gap: {deptOverview.pillar_summary.task_allocation.largest_gap_pp} pp
+              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">
+                Admin Gap: {deptOverview.pillar_summary.task_allocation.largest_gap_pp} pp
               </p>
             </div>
 
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-500">Pay Analysis</span>
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Pay Analysis</span>
                 <SignalBadge status={deptOverview.pillar_summary.pay.status} size="sm" />
               </div>
-              <p className="text-base font-bold text-slate-900">
+              <p className="text-sm sm:text-base font-bold text-slate-900">
                 {deptOverview.pillar_summary.pay.controlled_gap_pct}% Controlled
               </p>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Raw Gap: {deptOverview.pillar_summary.pay.raw_gap_pct}% (Controls applied)
+              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">
+                Raw Gap: {deptOverview.pillar_summary.pay.raw_gap_pct}%
               </p>
             </div>
 
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-500">Promotions</span>
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <span className="text-[11px] sm:text-xs font-semibold text-slate-500">Promotions</span>
                 <SignalBadge status={deptOverview.pillar_summary.promotions.status} size="sm" />
               </div>
-              <p className="text-base font-bold text-slate-900">
-                {deptOverview.pillar_summary.promotions.female_rate_pct}% (F) vs {deptOverview.pillar_summary.promotions.male_rate_pct}% (M)
+              <p className="text-sm sm:text-base font-bold text-slate-900">
+                {deptOverview.pillar_summary.promotions.female_rate_pct}% vs {deptOverview.pillar_summary.promotions.male_rate_pct}%
               </p>
-              <p className="text-[11px] text-slate-500 mt-1">
+              <p className="text-[10px] sm:text-[11px] text-slate-500 mt-1 truncate">
                 Gap: {deptOverview.pillar_summary.promotions.gap_pp} pp ({deptOverview.pillar_summary.promotions.trend_direction})
               </p>
             </div>
@@ -286,32 +286,34 @@ export const DepartmentDetail: React.FC = () => {
             <div className="p-4 border-b border-slate-200">
               <h4 className="text-xs font-bold text-slate-900">Workload Hours Breakdown by Role Title</h4>
             </div>
-            <table className="saas-table">
-              <thead>
-                <tr>
-                  <th>Role Title</th>
-                  <th>Female Sample</th>
-                  <th>Male Sample</th>
-                  <th>Female Avg Hours</th>
-                  <th>Male Avg Hours</th>
-                  <th>Variance</th>
-                </tr>
-              </thead>
-              <tbody>
-                {workloadData.role_breakdown.map((r, i) => (
-                  <tr key={i}>
-                    <td className="font-semibold text-slate-900">{r.role_title}</td>
-                    <td>{r.female_count}</td>
-                    <td>{r.male_count}</td>
-                    <td>{r.female_avg_hours}h</td>
-                    <td>{r.male_avg_hours}h</td>
-                    <td className={`font-semibold ${Math.abs(r.delta_hours) > 4.0 ? 'text-amber-600' : 'text-slate-700'}`}>
-                      {r.delta_hours > 0 ? `+${r.delta_hours}` : r.delta_hours}h
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="saas-table min-w-[560px]">
+                <thead>
+                  <tr>
+                    <th>Role Title</th>
+                    <th>Female Sample</th>
+                    <th>Male Sample</th>
+                    <th>Female Avg Hours</th>
+                    <th>Male Avg Hours</th>
+                    <th>Variance</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {workloadData.role_breakdown.map((r, i) => (
+                    <tr key={i}>
+                      <td className="font-semibold text-slate-900">{r.role_title}</td>
+                      <td>{r.female_count}</td>
+                      <td>{r.male_count}</td>
+                      <td>{r.female_avg_hours}h</td>
+                      <td>{r.male_avg_hours}h</td>
+                      <td className={`font-semibold ${Math.abs(r.delta_hours) > 4.0 ? 'text-amber-600' : 'text-slate-700'}`}>
+                        {r.delta_hours > 0 ? `+${r.delta_hours}` : r.delta_hours}h
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -358,32 +360,34 @@ export const DepartmentDetail: React.FC = () => {
             <div className="p-4 border-b border-slate-200">
               <h4 className="text-xs font-bold text-slate-900">Category Comparison & Disparity (Percentage Points)</h4>
             </div>
-            <table className="saas-table">
-              <thead>
-                <tr>
-                  <th>Task Category</th>
-                  <th>Female Time Share (%)</th>
-                  <th>Male Time Share (%)</th>
-                  <th>Difference (pp)</th>
-                  <th>Female Hours Total</th>
-                  <th>Male Hours Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {taskData.category_breakdown_table.map((row, i) => (
-                  <tr key={i}>
-                    <td className="font-semibold text-slate-900">{row.category}</td>
-                    <td>{row.female_pct}%</td>
-                    <td>{row.male_pct}%</td>
-                    <td className={`font-semibold ${Math.abs(row.difference_pp) >= 12.0 ? 'text-rose-600' : 'text-slate-700'}`}>
-                      {row.difference_pp > 0 ? `+${row.difference_pp}` : row.difference_pp} pp
-                    </td>
-                    <td>{row.female_hours_total.toLocaleString()}h</td>
-                    <td>{row.male_hours_total.toLocaleString()}h</td>
+            <div className="overflow-x-auto">
+              <table className="saas-table min-w-[580px]">
+                <thead>
+                  <tr>
+                    <th>Task Category</th>
+                    <th>Female Time Share (%)</th>
+                    <th>Male Time Share (%)</th>
+                    <th>Difference (pp)</th>
+                    <th>Female Hours Total</th>
+                    <th>Male Hours Total</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {taskData.category_breakdown_table.map((row, i) => (
+                    <tr key={i}>
+                      <td className="font-semibold text-slate-900">{row.category}</td>
+                      <td>{row.female_pct}%</td>
+                      <td>{row.male_pct}%</td>
+                      <td className={`font-semibold ${Math.abs(row.difference_pp) >= 12.0 ? 'text-rose-600' : 'text-slate-700'}`}>
+                        {row.difference_pp > 0 ? `+${row.difference_pp}` : row.difference_pp} pp
+                      </td>
+                      <td>{row.female_hours_total.toLocaleString()}h</td>
+                      <td>{row.male_hours_total.toLocaleString()}h</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -392,7 +396,7 @@ export const DepartmentDetail: React.FC = () => {
       {activeTab === 'pay' && payData && (
         <div className="space-y-6">
           {/* Explanation Box for Controls */}
-          <div className="p-4 bg-indigo-50/70 border border-indigo-200 rounded-lg text-xs leading-relaxed text-indigo-950">
+          <div className="p-3.5 sm:p-4 bg-indigo-50/70 border border-indigo-200 rounded-lg text-xs leading-relaxed text-indigo-950">
             <p className="font-semibold mb-1 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
               Comparable-Group Control Methodology:
@@ -400,23 +404,23 @@ export const DepartmentDetail: React.FC = () => {
             <p>{payData.control_explanation}</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
               <span className="text-[11px] text-slate-500 font-semibold uppercase">Raw Median Pay Gap</span>
-              <p className="text-2xl font-bold text-slate-900 mt-1">{payData.raw_difference_pct}%</p>
-              <p className="text-[11px] text-slate-400 mt-1">₹{payData.raw_female_median.toLocaleString()} (F) vs ₹{payData.raw_male_median.toLocaleString()} (M)</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{payData.raw_difference_pct}%</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-400 mt-1">₹{payData.raw_female_median.toLocaleString()} (F) vs ₹{payData.raw_male_median.toLocaleString()} (M)</p>
             </div>
 
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
               <span className="text-[11px] text-slate-500 font-semibold uppercase">Controlled Pay Gap</span>
-              <p className="text-2xl font-bold text-slate-900 mt-1">{payData.controlled_gap_pct}%</p>
-              <p className="text-[11px] text-slate-400 mt-1">Adjusted for role title, seniority, & tenure</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{payData.controlled_gap_pct}%</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-400 mt-1">Adjusted for role title, seniority, & tenure</p>
             </div>
 
-            <div className="p-4 bg-white border border-slate-200 rounded-lg">
+            <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
               <span className="text-[11px] text-slate-500 font-semibold uppercase">Average Merit Increment</span>
-              <p className="text-2xl font-bold text-slate-900 mt-1">{payData.increment_avg_female_pct}% (F) / {payData.increment_avg_male_pct}% (M)</p>
-              <p className="text-[11px] text-slate-400 mt-1">Annual performance-linked increases</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{payData.increment_avg_female_pct}% (F) / {payData.increment_avg_male_pct}% (M)</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-400 mt-1">Annual performance-linked increases</p>
             </div>
           </div>
 
@@ -425,42 +429,44 @@ export const DepartmentDetail: React.FC = () => {
             <div className="p-4 border-b border-slate-200">
               <h4 className="text-xs font-bold text-slate-900">Comparable-Group Stratification by Role & Seniority Band</h4>
             </div>
-            <table className="saas-table">
-              <thead>
-                <tr>
-                  <th>Role Title</th>
-                  <th>Seniority Band</th>
-                  <th>Sample (F / M)</th>
-                  <th>Female Median</th>
-                  <th>Male Median</th>
-                  <th>Adjusted Variance</th>
-                  <th>Reliability</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payData.comparable_groups.map((g, i) => (
-                  <tr key={i}>
-                    <td className="font-semibold text-slate-900">{g.role_title}</td>
-                    <td>{g.seniority_level}</td>
-                    <td>{g.sample_female}F / {g.sample_male}M</td>
-                    <td>₹{g.female_median_salary.toLocaleString()}</td>
-                    <td>₹{g.male_median_salary.toLocaleString()}</td>
-                    <td className="font-semibold text-slate-800">{g.difference_pct}%</td>
-                    <td>
-                      {g.is_reliable_sample ? (
-                        <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                          Sufficient Sample
-                        </span>
-                      ) : (
-                        <span className="text-[11px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-                          Small Sample (n &lt; 3)
-                        </span>
-                      )}
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="saas-table min-w-[640px]">
+                <thead>
+                  <tr>
+                    <th>Role Title</th>
+                    <th>Seniority Band</th>
+                    <th>Sample (F / M)</th>
+                    <th>Female Median</th>
+                    <th>Male Median</th>
+                    <th>Adjusted Variance</th>
+                    <th>Reliability</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {payData.comparable_groups.map((g, i) => (
+                    <tr key={i}>
+                      <td className="font-semibold text-slate-900">{g.role_title}</td>
+                      <td>{g.seniority_level}</td>
+                      <td>{g.sample_female}F / {g.sample_male}M</td>
+                      <td>₹{g.female_median_salary.toLocaleString()}</td>
+                      <td>₹{g.male_median_salary.toLocaleString()}</td>
+                      <td className="font-semibold text-slate-800">{g.difference_pct}%</td>
+                      <td>
+                        {g.is_reliable_sample ? (
+                          <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            Sufficient Sample
+                          </span>
+                        ) : (
+                          <span className="text-[11px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                            Small Sample (n &lt; 3)
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

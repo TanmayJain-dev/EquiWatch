@@ -98,7 +98,7 @@ export const ImpactSDGPage: React.FC = () => {
 
       {/* SECTION 30: Genuine Internal Empirical Benchmark Validation Script */}
       <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <Award className="w-4 h-4 text-emerald-600" />
@@ -112,7 +112,7 @@ export const ImpactSDGPage: React.FC = () => {
           <button
             onClick={runBenchmark}
             disabled={loadingBenchmark}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded transition-colors"
+            className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded transition-colors whitespace-nowrap"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loadingBenchmark ? 'animate-spin' : ''}`} />
             Re-run Benchmark Harness
@@ -151,7 +151,7 @@ export const ImpactSDGPage: React.FC = () => {
 
             {/* Test Sample Breakdown Table */}
             <div className="overflow-x-auto border border-slate-200 rounded-lg mt-3">
-              <table className="saas-table">
+              <table className="saas-table min-w-[700px]">
                 <thead>
                   <tr>
                     <th>Case ID</th>

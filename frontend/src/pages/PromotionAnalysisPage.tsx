@@ -50,11 +50,11 @@ export const PromotionAnalysisPage: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <select
             value={selectedDept}
             onChange={(e) => setSelectedDept(e.target.value)}
-            className="text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-1.5 focus:outline-none shadow-sm"
+            className="flex-1 sm:flex-none text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-2 sm:py-1.5 focus:outline-none shadow-sm"
           >
             {departments.map((d) => (
               <option key={d} value={d}>{d} Department</option>
@@ -64,7 +64,7 @@ export const PromotionAnalysisPage: React.FC = () => {
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
-            className="text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-1.5 focus:outline-none shadow-sm"
+            className="flex-1 sm:flex-none text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-2 sm:py-1.5 focus:outline-none shadow-sm"
           >
             <option value="2025-Q4">2025-Q4 (Latest)</option>
             <option value="2025-Q3">2025-Q3</option>
@@ -75,30 +75,30 @@ export const PromotionAnalysisPage: React.FC = () => {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div className="p-4 bg-white border border-slate-200 rounded-lg">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Female Promotion Rate</span>
-          <p className="text-2xl font-bold text-slate-900 mt-1">{data.overall_female_rate_pct}%</p>
-          <p className="text-[11px] text-slate-400 mt-0.5">Annualized advancement rate</p>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Female Rate</span>
+          <p className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{data.overall_female_rate_pct}%</p>
+          <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 truncate">Annualized rate</p>
         </div>
-        <div className="p-4 bg-white border border-slate-200 rounded-lg">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Male Promotion Rate</span>
-          <p className="text-2xl font-bold text-slate-900 mt-1">{data.overall_male_rate_pct}%</p>
-          <p className="text-[11px] text-slate-400 mt-0.5">Annualized advancement rate</p>
+        <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Male Rate</span>
+          <p className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">{data.overall_male_rate_pct}%</p>
+          <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 truncate">Annualized rate</p>
         </div>
-        <div className="p-4 bg-white border border-slate-200 rounded-lg">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Observed Disparity</span>
-          <p className={`text-2xl font-bold mt-1 ${Math.abs(data.gap_pp) >= 6.0 ? 'text-rose-600' : 'text-slate-900'}`}>
+        <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Disparity</span>
+          <p className={`text-xl sm:text-2xl font-bold mt-1 ${Math.abs(data.gap_pp) >= 6.0 ? 'text-rose-600' : 'text-slate-900'}`}>
             {data.gap_pp} pp
           </p>
-          <p className="text-[11px] text-slate-400 mt-0.5">Trend: {data.trend_direction}</p>
+          <p className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 truncate">Trend: {data.trend_direction}</p>
         </div>
-        <div className="p-4 bg-white border border-slate-200 rounded-lg">
-          <span className="text-xs font-semibold text-slate-500 uppercase">Status</span>
-          <div className="mt-2">
+        <div className="p-3.5 sm:p-4 bg-white border border-slate-200 rounded-lg">
+          <span className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</span>
+          <div className="mt-1.5">
             <SignalBadge status={data.signal_status} />
           </div>
-          <p className="text-[11px] text-slate-400 mt-1">Persistence: {data.persistence_quarters} quarters</p>
+          <p className="text-[10px] sm:text-[11px] text-slate-400 mt-1 truncate">Persistence: {data.persistence_quarters} qtrs</p>
         </div>
       </div>
 

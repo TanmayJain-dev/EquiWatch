@@ -60,9 +60,9 @@ export const GovernmentPreviewPage: React.FC = () => {
       </div>
 
       {/* Sector Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {data.sectors.map((sec, i) => (
-          <div key={i} className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-3">
+          <div key={i} className="bg-white border border-slate-200 rounded-lg p-4 sm:p-5 shadow-sm space-y-3">
             <div className="flex items-start justify-between">
               <h3 className="text-xs font-bold text-slate-900 line-clamp-1">{sec.sector_name}</h3>
               <SignalBadge status={sec.sector_risk_status.toLowerCase()} size="sm" />
