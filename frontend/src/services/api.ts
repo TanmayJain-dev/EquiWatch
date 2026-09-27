@@ -7,7 +7,7 @@ import {
 const resolveApiBase = (): string => {
   const envUrl = import.meta.env.VITE_API_URL;
   if (!envUrl) {
-    return 'http://localhost:8000/api/v1';
+    return 'https://equiwatch-api.onrender.com/api/v1';
   }
   let base = envUrl.trim();
   if (!base.startsWith('http://') && !base.startsWith('https://') && !base.startsWith('/')) {
