@@ -1,7 +1,31 @@
 # EquiWatch
 
+<p align="center">
+  <a href="https://equiwatch-analytics.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-equiwatch--analytics.vercel.app-2563eb?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" /></a>
+  <img src="https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
+  <img src="https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/TailwindCSS-3.4-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+</p>
+
 > **Detect. Explain. Act.**  
 > *An AI-powered workplace gender-equity decision-support watchdog.*
+
+🔗 **Live Production Application:** [https://equiwatch-analytics.vercel.app](https://equiwatch-analytics.vercel.app)
+
+---
+
+## 📸 Interface & Analytics Showcase
+
+| Workplace Equity Overview | Workload & Overtime Analysis |
+| :---: | :---: |
+| ![Workplace Equity Overview](assets/screenshots/overview-dashboard.png) | ![Workload & Overtime Analysis](assets/screenshots/workload-analysis.png) |
+
+| Comparable Pay & Compensation Gaps | AI Analyst & Copilot Assistant |
+| :---: | :---: |
+| ![Pay Analysis](assets/screenshots/pay-analysis.png) | ![AI Assistant](assets/screenshots/ai-assistant.png) |
+
+---
 
 EquiWatch is a full-stack, production-grade SaaS analytics application that analyzes organizational workforce data (tasks, hours, roles, seniority, compensation, and promotions) to identify potential gender-equity disparities, explain longitudinal patterns using grounded statistical methods, and provide HR teams with actionable investigation roadmaps.
 
